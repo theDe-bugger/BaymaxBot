@@ -58,14 +58,14 @@ client.on('ready',() => {
 
     // return some help and resources - jaimil
 
-    // a random choice from a list of destressing activities - sam
+    // a random choice from a list of destressing activities - sam 
 
     // a random choice from a list of destressing gifs - anna
 
     // pinging mods in mod channel if it gets bad? - om
 
 
-// situationcheck()
+// situationcheckkkkkkkkkkkk() hello
 // based on what time of year it is or the general situation  - anna
 
     // automatically send gifs and um help/motivational comments every few minutes - anna
