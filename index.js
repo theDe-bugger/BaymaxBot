@@ -53,7 +53,8 @@ const suicidalMessageDM = {
     },
     description: `A text you have sent in a server was flagged as containing Suicidal Ideation. 
     We care about you, and we want to make sure you're okay!
-    Please look at the commands and resources below, they may help you. DID THIS HELP? React with 👍 or 👎`,
+    Please look at the commands and resources below, they may help you. 
+    If you found this message helpful or not, please react with 👍 or 👎`,
     thumbnail: {
         url: 'https://i.ibb.co/ZSWXnSW/Screen-Shot-2021-05-22-at-5-13-56-PM.png',
     },
@@ -165,7 +166,6 @@ let msgId = [];
 client.on('message', message => {
 // this is run every time a new message is sent to chat
 let suicidalWordFound = false ;
-
 
     for (let i = 0 ; i < suicidalWords.length ; i++){
         console.log("checked " + suicidalWords[i])
