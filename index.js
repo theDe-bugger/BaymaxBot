@@ -53,7 +53,7 @@ const suicidalMessageDM = {
     We care about you, and we want to make sure you're okay!
     Please look at the commands and resources below, they may help you`,
     thumbnail: {
-        url: 'https://i.imgur.com/wSTFkRM.png',
+        url: 'https://i.ibb.co/ZSWXnSW/Screen-Shot-2021-05-22-at-5-13-56-PM.png',
     },
     fields: [
         {
@@ -124,7 +124,7 @@ const stressfulWords= ["stressed", "too much work", "too busy", "no time", "ever
     "I hate everything"];
 
 
-client.on('message', async message => {
+client.on('message', message => {
 // this is run every time a new message is sent to chat
 let suicidalWordFound = false ;
 
