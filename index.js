@@ -9,7 +9,7 @@ client.on('ready',() => {
     console.log('client is ready!')
 
     // pingpong test
-    command(client, 'pingu', message => {
+    command(client, 'ping', message => {
         message.channel.send('Pong!')
     })
 
