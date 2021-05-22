@@ -7,24 +7,11 @@ const command = require('./command')
 // that they can ask for help with !sendHelp or whatever
 
 // added to server -> make a bot channel for anyone with admin perms - om
-client.once('message', message => {
-    message.guild.channels.create('Baymax Bot', {
-        type: 'category',
-        position: 1,
-        permissionOverwrites: [
-            {
-                id: message.guild.id,
-                deny: ['VIEW_CHANNEL']
-            },
-            {
-                id: message.guild.roles.highest,
-                allow: ['SEND_MESSAGES', 'VIEW_CHANNEL']
-            }
-        ]
-    }).then(category => {
-        message.guild.channels.create('notifs', {
-            type: 'text',
-            parent: category,
+client.once('message', () => {
+    command(client, 'init', message => {
+        message.guild.channels.create('Baymax Bot', {
+            type: 'category',
+            position: 1,
             permissionOverwrites: [
                 {
                     id: message.guild.id,
@@ -35,9 +22,24 @@ client.once('message', message => {
                     allow: ['SEND_MESSAGES', 'VIEW_CHANNEL']
                 }
             ]
+        }).then(category => {
+            message.guild.channels.create('baymax-bot-notifs', {
+                type: 'text',
+                parent: category,
+                permissionOverwrites: [
+                    {
+                        id: message.guild.id,
+                        deny: ['VIEW_CHANNEL']
+                    },
+                    {
+                        id: message.guild.roles.highest,
+                        allow: ['SEND_MESSAGES', 'VIEW_CHANNEL']
+                    }
+                ]
+            });
+        }).catch(error => {
+            console.log(error);
         });
-    }).catch(error => {
-        console.log(error);
     });
 });
 
@@ -111,9 +113,6 @@ client.on('ready',() => {
     })
 })
 
-// added to server -> make a bot channel for anyone with admin perms - om
-
-
 // listen function for all messages to check for suicidal/sad texts - sam
 
 const suicidalWords = ["I want to die", "I wanna die", "I actually want to die", "I actually wanna die", 
@@ -168,6 +167,10 @@ let suicidalWordFound = false ;
         // dm person and check if no/yes for error - jaimil
 
             //no: if else pinging mods in mod channel (custom channel on join) - om 
+            client.on('message', message => {
+               // const channel = client.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
+               // channel.send('why u no work');
+            });
             
             //yes: apologize and send a nice message - jaimil
 
