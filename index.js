@@ -38,10 +38,21 @@ client.on('ready',() => {
 
 
 // listen function for all messages to check for suicidal/sad texts - sam
-
+    // if it is in the list
+    // counter += 1
+    // counter > 10
+    // check time
+    // situationcheck()
     // if else with api call to suicidal api - jaimil
+        // dm person and check if no/yes for error - jaimil
 
-        // if else pinging mods in mod channel (custom channel on join) - om 
+            //no: if else pinging mods in mod channel (custom channel on join) - om 
+            
+            //yes: apologize and send a nice message - jaimil
+
+            //timecheck: timestamp of the sent message, add an hour to it, if person doesnt respond send it
+            
+
 
 // listen function for all messages to check for stress/anxiety related to assessments - sam
 
@@ -54,6 +65,7 @@ client.on('ready',() => {
     // pinging mods in mod channel if it gets bad? - om
 
 
+// situationcheck()
 // based on what time of year it is or the general situation  - anna
 
     // automatically send gifs and um help/motivational comments every few minutes - anna
