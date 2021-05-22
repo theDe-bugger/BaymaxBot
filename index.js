@@ -3,6 +3,40 @@ const config = require('./config.json')
 const client = new Discord.Client()
 const command = require('./command')
 
+// Message that is first sent to the user 
+const suicidalMessageDM = {
+    color: '#edf5f7',
+    title: 'Baymax Has A Message For You',
+    author: {
+        name: 'Mental Health Bot',
+        icon_url: 'http://clipart-library.com/data_images/134143.gif'
+    },
+    description: `A text you have sent in a server was flagged as containing Suicidal Ideation. 
+    We care about you, and we want to make sure you're okay!
+    Please look at the commands and resources below, they may help you`,
+    thumbnail: {
+        url: 'https://i.imgur.com/wSTFkRM.png',
+    },
+    fields: [
+        {
+            name: 'National Suicide Prevention Lifeline',
+            value: 'https://suicidepreventionlifeline.org/',
+        },
+        {
+            name: 'Reasons to Live',
+            value: 'https://www.healthline.com/health/mental-health/reasons-to-live#Youre-not-as-alone-as-you-feel',
+        },
+        {
+            name: 'Self-Care Strategies',
+            value: 'https://www.healthline.com/health/depression/self-care-for-depression',
+        },
+        {
+            name: 'Type the command below for a list of commands and helpful resources',
+            value: '!commands',
+        }
+    ],
+    timestamp: new Date()
+};
 
 // on ready function + all hard coded commands
 client.on('ready',() => {
@@ -14,6 +48,11 @@ client.on('ready',() => {
     })
 
     // greetings
+    command(client, 'hiiiii', message => {
+        message.channel.send('Hey, I am Beymax, happy to help!')
+    })
+
+    // Standard motivational message
     command(client, 'hiiiii', message => {
         message.channel.send('Hey, I am Beymax, happy to help!')
     })
@@ -46,15 +85,35 @@ const suicidalWords = ["I want to die", "I wanna die", "I actually want to die",
 const stressfulWords= ["stressed", "too much work", "too busy", "no time", "everything sucks", 
     "I hate everything"];
 
+
 client.on('message', async message => {
-// this is run everytime a new message is sent to chat
+// this is run every time a new message is sent to chat
+let suicidalWordFound = false ;
 
     for (let i = 0 ; i < suicidalWords.length ; i++){
-        if (message.content.toLocaleLowerCase().includes(suicidalWords[i].toLocaleLowerCase())){
+        console.log("checked " + suicidalWords[i])
+        if (message.content.toLowerCase().includes(suicidalWords[i].toLowerCase())){
+            console.log("it has a sad word");
             // if a suicidal word is found
+            
+            suicidalWordFound = true ;
+
+            try { // we have to try incase their DM's are closed
+                message.author.send({ embed: suicidalMessageDM });
+            } catch {
+                // if their dm is closed tell a mod in the bot channel
+            }
+            break; // if one word is found then exit after, dont keep looping
         }
-        else if (message.content.toLocaleLowerCase().includes(stressfulWords[i].toLocaleLowerCase())){
-            // if a stressed word is found
+    }
+
+    if (!suicidalWordFound){
+        for (let i = 0 ; i < stressfulWords.length ; i++){
+            if (message.content.toLowerCase().includes(stressfulWords[i].toLowerCase())){
+                // if a stressed word is found
+    
+                break; // if one word is found then exit after, dont keep looping
+            }
         }
     }
 });
