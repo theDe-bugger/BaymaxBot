@@ -19,7 +19,7 @@ client.on('ready',() => {
     })
 
     // resources
-    command(client, 'resources', message => {
+    command(client, 'res1', message => {
         message.channel.send('``` Links to mental health resources: ```')
     })
 
