@@ -38,6 +38,28 @@ client.on('ready',() => {
 
 
 // listen function for all messages to check for suicidal/sad texts - sam
+
+const suicidalWords = ["I want to die", "I cant't do this", 
+    "I cant do this", "kill myself", "kms", "end my life",
+    "goodbye world"];
+const stressfulWords= ["stressed", "too much work", "too busy", "no time"];
+
+client.on('message', async message => {
+// this is run everytime a new message is sent to chat
+
+    for (let i = 0 ; i < suicidalWords.length ; i++){
+        if (message.content.toLocaleLowerCase().includes(suicidalWords[i].toLocaleLowerCase())){
+            // if a suicidal word is found
+        }
+        else if (message.content.toLocaleLowerCase().includes(stressfulWords[i].toLocaleLowerCase())){
+            // if a stressed word is found
+        }
+    }
+});
+
+
+
+
     // if it is in the list
     // counter += 1
     // counter > 10
