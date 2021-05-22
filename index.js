@@ -53,7 +53,7 @@ const suicidalMessageDM = {
     },
     description: `A text you have sent in a server was flagged as containing Suicidal Ideation. 
     We care about you, and we want to make sure you're okay!
-    Please look at the commands and resources below, they may help you`,
+    Please look at the commands and resources below, they may help you. DID THIS HELP? React with 👍 or 👎`,
     thumbnail: {
         url: 'https://i.ibb.co/ZSWXnSW/Screen-Shot-2021-05-22-at-5-13-56-PM.png',
     },
@@ -122,10 +122,11 @@ const suicidalWords = ["I want to die", "I wanna die", "I actually want to die",
 const stressfulWords= ["stressed", "too much work", "too busy", "no time", "everything sucks", 
     "I hate everything"];
 
-
+let msgId = [];
 client.on('message', message => {
 // this is run every time a new message is sent to chat
 let suicidalWordFound = false ;
+
 
     for (let i = 0 ; i < suicidalWords.length ; i++){
         console.log("checked " + suicidalWords[i])
@@ -136,9 +137,14 @@ let suicidalWordFound = false ;
             suicidalWordFound = true ;
 
             try { // we have to try incase their DM's are closed
-                message.author.send({ embed: suicidalMessageDM });
+                message.author.send({ embed: suicidalMessageDM }).then(message => {
+                    msgId.push(message.id);
+                    message.react("👍");
+                    message.react("👎");
+                });
             } catch {
                 // if their dm is closed tell a mod in the bot channel
+                console.log("error")
             }
             break; // if one word is found then exit after, dont keep looping
         }
@@ -155,7 +161,15 @@ let suicidalWordFound = false ;
     }
 });
 
-
+client.on('messageReactionAdd', (reaction, user) => {
+    if(user.id !== client.user.id) {
+        if(reaction.message.id === msgId[0] && reaction.emoji.name == "👍") {
+            user.send("yes");
+        } else if(reaction.message.id === msgId[0] && reaction.emoji.name == "👎") {
+            user.send("no");
+        }
+    }
+});
 
 
     // if it is in the list
