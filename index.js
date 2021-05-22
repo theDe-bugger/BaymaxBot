@@ -14,7 +14,7 @@ client.on('ready',() => {
     })
 
     // greetings
-    command(client, 'hello', message => {
+    command(client, 'hiiiii', message => {
         message.channel.send('Hey, I am Beymax, happy to help!')
     })
 
