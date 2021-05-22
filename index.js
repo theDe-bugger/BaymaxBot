@@ -151,6 +151,11 @@ client.on('ready',() => {
     command(client, 'idkkkk', message => {
         message.channel.send('``` Links to mental health resources: ```')
     })
+
+    command(client, 'pingadmins', message => {
+        const channel = message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
+        channel.send('ayyy lets go');
+    });
 })
 
 // listen function for all messages to check for suicidal/sad texts - sam
@@ -220,12 +225,6 @@ client.on('messageReactionAdd', (reaction, user) => {
         // dm person and check if no/yes for error - jaimil
 
             //no: if else pinging mods in mod channel (custom channel on join) - om 
-            client.on('message', () => {
-                command(client, 'pingadmins', async message => {
-                    const channel = message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
-                    channel.send('why u no work');
-                });
-            });
             
             //yes: apologize and send a nice message - jaimil
 
