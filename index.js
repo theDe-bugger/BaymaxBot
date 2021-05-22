@@ -39,10 +39,12 @@ client.on('ready',() => {
 
 // listen function for all messages to check for suicidal/sad texts - sam
 
-const suicidalWords = ["I want to die", "I cant't do this", 
+const suicidalWords = ["I want to die", "I wanna die", "I actually want to die", "I actually wanna die", 
+    "I cant't do this", "I actually want to die rn", "I actually wanna die rn",
     "I cant do this", "kill myself", "kms", "end my life",
     "goodbye world"];
-const stressfulWords= ["stressed", "too much work", "too busy", "no time"];
+const stressfulWords= ["stressed", "too much work", "too busy", "no time", "everything sucks", 
+    "I hate everything"];
 
 client.on('message', async message => {
 // this is run everytime a new message is sent to chat
