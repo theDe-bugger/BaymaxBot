@@ -236,8 +236,8 @@ client.on('ready',() => {
     })
 
     command(client, 'pingadmins', message => {
-        const channel = message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
-        channel.send('ayyy lets go');
+        const the_channel = message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
+        the_channel.send('ayyy lets go');
     });
 })
 
