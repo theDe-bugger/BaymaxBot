@@ -5,8 +5,6 @@ const command = require('./command');
 
 const PREFIX = '!';
 const { Client, MessageAttachment} = require('discord.js');
-const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
-require('events').EventEmitter.defaultMaxListeners = 20;
 
 //TODO: when the bot is added and when new ppl join the server, send dm's to everyone letting them know
 // that they can ask for help with !sendHelp or whatever
