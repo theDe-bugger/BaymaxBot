@@ -285,7 +285,9 @@ const suicidalWords = ["I want to die", "I wanna die", "I actually want to die",
     "I dont want to be alive", "i can't do this anymore", "i can't keep going", "i cant go on anymore"];
 const stressfulWords= ["stressed", "too much work", "too busy", "no time", "everything sucks",
     "I hate everything", "I have so much", "I have so much to do", "I have no time",
-    "I will never get this done"];
+    "I will never get this done", "Why is there so much work", "I can't even sleep", "I literally can't sleep", "I hate this",
+    "why always me", "why me", "so much work", "so busy", "don't have time for anything", "im buried", "i'm buried",
+    "i literally cant sleep"];
 
 const gifs = [
     'https://i.imgur.com/P4415fF.gif', //penguin
