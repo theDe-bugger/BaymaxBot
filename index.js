@@ -8,23 +8,12 @@ const PREFIX = '!';
 require('events').EventEmitter.defaultMaxListeners = 20;
 let already_init = false;
 
-//TODO: when the bot is added and when new ppl join the server, send dm's to everyone letting them know
-// that they can ask for help with !sendHelp or whatever
-
-// added to server -> make a bot channel for anyone with admin perms - om
-/*client.once('message', message => {
-    if (message === '!init' && !already_init) {
-        
-    }
-});*/
-
-
 client.on("guildMemberAdd", member => {
     console.log("new member")
     member.send({embed: newMemberDM})
 });
 
-// Message that is first sent to the user 
+// Message that is sent when the bot detects suicidal ideation
 const suicidalMessageDM = {
     color: '#edf5f7',
     title: 'Baymax Has A Message For You',
@@ -60,7 +49,7 @@ const suicidalMessageDM = {
     timestamp: new Date()
 };
 
-// Message that is first sent to the user 
+// Message that is sent when a new user joins the server
 const newMemberDM = {
     color: '#edf5f7',
     title: 'Baymax Has A Message For You',
@@ -85,7 +74,7 @@ const newMemberDM = {
         }]
 };
 
-// Message that is first sent to the user 
+// Message that is sent when the bot detects stressed ideation
 const stressedMessageDM = {
     color: '#edf5f7',
     title: 'Baymax Has A Message For You',
@@ -124,6 +113,7 @@ const stressedMessageDM = {
     timestamp: new Date()
 };
 
+// List of commands that a user can choose from
 const listOfCommands = {
     color: '#adf1ff',
     title: 'Commands',
@@ -161,7 +151,7 @@ const listOfCommands = {
     ]
 };
 
-// on ready function + all hard coded commands
+// On ready function + all hard coded commands
 client.on('ready',() => {
     console.log('client is ready!')
 
@@ -170,6 +160,7 @@ client.on('ready',() => {
         message.channel.send({ embed: listOfCommands })
     })
 
+    // All provinces and US
     command(client, 'Ontario', message => {
         message.channel.send('Mental Health Helpline. Call 1-866-531-2600.')
     })
@@ -231,16 +222,11 @@ client.on('ready',() => {
         message.channel.send('Hey, I am Beymax, happy to help!')
     })
 
-    // gifs command
-    command(client, 'gif', message => {
-        //message.channel.send('``` Links to mental health resources: ```')
-    })
-
     command(client, 'pingadmins', message => {
         const the_channel = message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
-        the_channel.send('ayyy lets go');
     });
 
+    // Sending messages in mod channel
     command(client, 'init', message => {
         if (!already_init) {
             already_init = true;
@@ -279,6 +265,7 @@ client.on('ready',() => {
     });
 })
 
+// List of phrases to check for
 const suicidalWords = ["I want to die", "I wanna die", "I actually want to die", "I actually wanna die", 
     "I can't do this", "I actually want to die rn", "I actually wanna die rn",
     "I cant do this", "kill myself", "kms", "end my life", "I dont want to wakeup",
@@ -306,7 +293,6 @@ let msgId = [];
 let counter = 0;
 let msgId2 = [];
 client.on('message', message => {
-// this is run every time a new message is sent to chat
 let suicidalWordFound = false;
 let stressfulWordFound = false;
 
@@ -316,7 +302,7 @@ let stressfulWordFound = false;
             // if a suicidal word is found
             suicidalWordFound = true;
 
-            //try { // we have to try incase their DM's are closed
+        
                 message.author.send({ embed: suicidalMessageDM }).then(msg => {
                     msgId.push(msg.id);
                     msg.react("👍");
@@ -325,11 +311,6 @@ let stressfulWordFound = false;
                     const the_channel = message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
                     the_channel.send(`${message.author.tag} has been saying things that potentially signal suicidal behavior. Their dm's are closed. Please reach out and ask them to dm this bot '!command' if needed.`);
                 });
-            //} catch {
-                // if their dm is closed tell a mod in the bot channel
-            //    const the_channel = message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
-           //     the_channel.send(`${message.author.id} has been saying things that potentially signal suicidal behavior. Their dm's are closed. Please reach out.`);
-            //}
             break; // if one word is found then exit after, dont keep looping
         }
     }
