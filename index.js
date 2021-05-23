@@ -301,8 +301,8 @@ let stressfulWordFound = false;
                     message.react("👍");
                     message.react("👎");
                 }).catch(error => {
-                    const the_channel = message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
-                    the_channel.send(`${message.author.tag} has been saying things that potentially signal stressed behavior. Their dm's are closed. Please reach out and ask them to dm this bot '!command' if needed.`);
+                    const the_channel2 = message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
+                    the_channel2.send(`${message.author.tag} has been saying things that potentially signal depressed behavior. Their dm's are closed. Please reach out and ask them to dm this bot '!command' if needed.`);
                 });
                 break; // if one word is found then exit after, dont keep looping
             }
