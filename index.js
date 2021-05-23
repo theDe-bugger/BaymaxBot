@@ -2,6 +2,7 @@ const Discord = require('discord.js')
 const config = require('./config.json')
 const client = new Discord.Client()
 const command = require('./command')
+require('events').EventEmitter.defaultMaxListeners = 20;
 
 //TODO: when the bot is added and when new ppl join the server, send dm's to everyone letting them know
 // that they can ask for help with !sendHelp or whatever
@@ -158,11 +159,6 @@ const listOfCommands = {
 client.on('ready',() => {
     console.log('client is ready!')
 
-    // pingpong test
-    command(client, 'ping', message => {
-        message.channel.send('Pong!')
-    })
-
     // List of commands
     command(client, 'commands', message => {
         message.channel.send({ embed: listOfCommands })
@@ -230,7 +226,7 @@ client.on('ready',() => {
     })
 
     // gifs command
-    command(client, 'resources', message => {
+    command(client, 'gif', message => {
         message.channel.send('``` Links to mental health resources: ```')
     })
 
@@ -240,14 +236,14 @@ client.on('ready',() => {
     });
 })
 
-// listen function for all messages to check for suicidal/sad texts - sam
-
 const suicidalWords = ["I want to die", "I wanna die", "I actually want to die", "I actually wanna die", 
     "I cant't do this", "I actually want to die rn", "I actually wanna die rn",
-    "I cant do this", "kill myself", "kms", "end my life",
-    "goodbye world"];
+    "I cant do this", "kill myself", "kms", "end my life", "I dont want to wakeup",
+    "goodbye world", "I dont want to live", "I never want to wake up", "this is the end",
+    "I dont want to be alive"];
 const stressfulWords= ["stressed", "too much work", "too busy", "no time", "everything sucks", 
-    "I hate everything"];
+    "I hate everything", "I have so much", "I have so much to do", "I have no time",
+    "I will never get this done"];
 
 let msgId = [];
 let msgId2 = [];
