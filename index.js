@@ -46,6 +46,13 @@ client.once('message', () => {
     });
 });
 
+
+client.on("guildMemberAdd", member => {
+    console.log("new member")
+    member.send({embed: newMemberDM})
+});
+
+
 // Message that is first sent to the user 
 const suicidalMessageDM = {
     color: '#edf5f7',
@@ -89,6 +96,7 @@ const newMemberDM = {
         name: 'Mental Health Bot',
         icon_url: 'http://clipart-library.com/data_images/134143.gif'
     },
+    description: `Welcome!`,
     thumbnail: {
         url: 'https://i.ibb.co/ZSWXnSW/Screen-Shot-2021-05-22-at-5-13-56-PM.png',
     },
@@ -102,7 +110,7 @@ const newMemberDM = {
         },
         {
             name: 'Take a look at some of the commands I offer by typing in chat:',
-            value: '!commands',
+            value: '!commands'
         }]
 };
 
@@ -262,11 +270,6 @@ client.on('ready',() => {
         the_channel.send('ayyy lets go');
     });
 })
-
-client.on('guildMemberAdd', member => {
-    console.log("new member");
-    member.author.send({ embed: newMemberDM });
-});
 
 const suicidalWords = ["I want to die", "I wanna die", "I actually want to die", "I actually wanna die", 
     "I cant't do this", "I actually want to die rn", "I actually wanna die rn",
