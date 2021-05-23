@@ -275,16 +275,20 @@ let stressfulWordFound = false;
             // if a suicidal word is found
             suicidalWordFound = true;
 
-            try { // we have to try incase their DM's are closed
-                message.author.send({ embed: suicidalMessageDM }).then(message => {
-                    msgId.push(message.id);
-                    message.react("👍");
-                    message.react("👎");
+            //try { // we have to try incase their DM's are closed
+                message.author.send({ embed: suicidalMessageDM }).then(msg => {
+                    msgId.push(msg.id);
+                    msg.react("👍");
+                    msg.react("👎");
+                }).catch(error => {
+                    const the_channel = message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
+                    the_channel.send(`${message.author.tag} has been saying things that potentially signal suicidal behavior. Their dm's are closed. Please reach out.`);
                 });
-            } catch {
+            //} catch {
                 // if their dm is closed tell a mod in the bot channel
-                console.log("error")
-            }
+            //    const the_channel = message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
+           //     the_channel.send(`${message.author.id} has been saying things that potentially signal suicidal behavior. Their dm's are closed. Please reach out.`);
+            //}
             break; // if one word is found then exit after, dont keep looping
         }
     }
@@ -348,8 +352,11 @@ client.on('messageReactionAdd', (reaction, user) => {
     if(user.id !== client.user.id) {
         if(reaction.message.id === msgId[0] && reaction.emoji.name == "👍") {
             user.send(`I'm glad I could help! \nPlease utilize the links above, along with other resources by typing !command`);
+            const the_channel = reaction.message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
+            the_channel.send('ayyy lets go');
         } else if(reaction.message.id === msgId[0] && reaction.emoji.name == "👎") {
             user.send("Sorry for the inconvenience, but always remember you are wanted and loved ❤️");
+            //user.send("feel free to use !command in the future if you want");
         }
         if(reaction.message.id === msgId2[0] && reaction.emoji.name == "👍") {
             user.send(`I'm glad I could help! \nPlease utilize the links above, along with other resources by typing !command`);
