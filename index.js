@@ -342,15 +342,14 @@ let stressfulWordFound = false;
         }
     }
 
-    if (stressfulWordFound || suicidalWordFound) {
-
+    if ((stressfulWordFound || suicidalWordFound) && message.author.bot) {
         let minelapsed = (message.createdAt.getTime()-timecheck.getTime())/(1000*60);
         console.log(minelapsed);
-        console.log(counter);
+        console.log(counter +' me');
         if (minelapsed>=60){
             counter = 0;
         }else{
-            counter+=1;
+            counter++;
         }
         timecheck = message.createdAt;
     }
@@ -364,6 +363,7 @@ let stressfulWordFound = false;
 
         message.channel.send(newEmbed); 
         counter = 0;
+        console.log(counter);
     }
     let args = message.content.substring(PREFIX.length).split(/\s+/);
 
@@ -374,7 +374,7 @@ let stressfulWordFound = false;
             .setImage(gif)
             .setTitle('hello')
             .setColor('#304281');
-
+            console.log('check')
             message.channel.send(newEmbed);
 
         break;
