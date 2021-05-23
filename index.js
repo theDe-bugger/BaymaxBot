@@ -52,7 +52,6 @@ client.on("guildMemberAdd", member => {
     member.send({embed: newMemberDM})
 });
 
-
 // Message that is first sent to the user 
 const suicidalMessageDM = {
     color: '#edf5f7',
@@ -103,8 +102,7 @@ const newMemberDM = {
     fields: [
         {
             name: 'Thank you for joining this server!',
-            value: `I am a Baymax bot. My job is to search through messages within the server chat
-                    and determine if a user seems depressed or overly stressed
+            value: `I am a Baymax bot. My job is to search through messages within the server chat and determine if a user seems depressed or overly stressed
                     I provide helpful links to those who need it, and I try my
                     best to give the support to people who are suffering`,
         },
