@@ -1,7 +1,11 @@
-const Discord = require('discord.js')
-const config = require('./config.json')
-const client = new Discord.Client()
-const command = require('./command')
+const Discord = require ('discord.js');
+const config = require('./config.json');
+const client = new Discord.Client();
+const command = require('./command');
+
+const PREFIX = '!';
+const { Client, MessageAttachment} = require('discord.js');
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 require('events').EventEmitter.defaultMaxListeners = 20;
 
 //TODO: when the bot is added and when new ppl join the server, send dm's to everyone letting them know
@@ -241,22 +245,35 @@ const suicidalWords = ["I want to die", "I wanna die", "I actually want to die",
     "I cant do this", "kill myself", "kms", "end my life", "I dont want to wakeup",
     "goodbye world", "I dont want to live", "I never want to wake up", "this is the end",
     "I dont want to be alive"];
-const stressfulWords= ["stressed", "too much work", "too busy", "no time", "everything sucks", 
+const stressfulWords= ["stressed", "too much work", "too busy", "no time", "everything sucks",
     "I hate everything", "I have so much", "I have so much to do", "I have no time",
     "I will never get this done"];
 
+const gifs = [
+    'https://i.imgur.com/P4415fF.gif', //penguin
+    'https://i.imgur.com/HLSQLQ2.gif', //ghost
+    'https://i.imgur.com/bkhs8qE.jpeg', //panda
+    'https://i.imgur.com/xvE2pyy.jpeg', //chick
+    'https://64.media.tumblr.com/65c8e5abcf8690a94519a781077687fd/tumblr_p2wag5u61k1qc4uvwo1_500.gifv', //multiple
+    'https://64.media.tumblr.com/4ebe8e53e9de517ca556b397aaa4a4be/377d106051e4ed6b-b3/s500x750/bae3ccb1c2c5b5d5824863d18bf9c68782eca3b4.jpg', //turtle
+    'https://64.media.tumblr.com/cc07f3a8a8ff087a739a0ccd4d9f254c/d4f9b40f1be7a526-ea/s500x750/67e6f2d418356e3239afb1c4bf822ba29c57f7a5.jpg', //chicksun
+    'https://64.media.tumblr.com/70fdcd63f1650278205782fc83fb9e4a/08c943f81ee2c4c4-d2/s500x750/deac6ba0a3320fa4a8db4b9ef2e8f83df2811af4.jpg'
+    ];
+
+let timecheck = new Date(2003, 05, 05);
 let msgId = [];
+let counter = 0;
 let msgId2 = [];
 client.on('message', message => {
 // this is run every time a new message is sent to chat
-let suicidalWordFound = false ;
-
+let suicidalWordFound = false;
+let stressfulWordFound = false;
 
     for (let i = 0 ; i < suicidalWords.length ; i++){
         if (message.content.toLowerCase().includes(suicidalWords[i].toLowerCase())){
             console.log("it has a sad word");
             // if a suicidal word is found
-            suicidalWordFound = true ;
+            suicidalWordFound = true;
 
             try { // we have to try incase their DM's are closed
                 message.author.send({ embed: suicidalMessageDM }).then(message => {
@@ -276,6 +293,7 @@ let suicidalWordFound = false ;
         for (let i = 0 ; i < stressfulWords.length ; i++){
             if (message.content.toLowerCase().includes(stressfulWords[i].toLowerCase())){
                 // if a stressed word is found
+                stressfulWordFound = true;
                 message.author.send({ embed: stressedMessageDM }).then(message => {
                     msgId2.push(message.id);
                     message.react("👍");
@@ -285,7 +303,46 @@ let suicidalWordFound = false ;
             }
         }
     }
+
+    if (stressfulWordFound || suicidalWordFound) {
+
+        let minelapsed = (message.createdAt.getTime()-timecheck.getTime())/(1000*60);
+        console.log(minelapsed);
+        console.log(counter);
+        if (minelapsed>=60){
+            counter = 0;
+        }else{
+            counter+=1;
+        }
+        timecheck = message.createdAt;
+    }
+
+    if (counter>=3) {
+        const gif = gifs[Math.floor(Math.random() * gifs.length)];
+        const newEmbed = new Discord.MessageEmbed()
+        .setImage(gif)
+        .setTitle('hello')
+        .setColor('#304281');
+
+        message.channel.send(newEmbed); 
+    }
+    let args = message.content.substring(PREFIX.length).split(/\s+/);
+
+    switch(args[0]){
+        case 'send':
+            const gif = gifs[Math.floor(Math.random() * gifs.length)];
+            const newEmbed = new Discord.MessageEmbed()
+            .setImage(gif)
+            .setTitle('hello')
+            .setColor('#304281');
+
+            message.channel.send(newEmbed);
+
+        break;
+    }
 });
+
+
 
 client.on('messageReactionAdd', (reaction, user) => {
     if(user.id !== client.user.id) {
@@ -301,6 +358,7 @@ client.on('messageReactionAdd', (reaction, user) => {
         }
     }
 });
+
 
 
     // if it is in the list
@@ -324,7 +382,7 @@ client.on('messageReactionAdd', (reaction, user) => {
     // a random choice from a list of destressing activities - sam 
 
     // a random choice from a list of destressing gifs - anna
-
+    
     // pinging mods in mod channel if it gets bad? - om
 
 
