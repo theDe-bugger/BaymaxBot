@@ -34,7 +34,8 @@ const suicidalMessageDM = {
     },
     description: `A text you have sent in a server was flagged as containing Suicidal Ideation. 
     We care about you, and we want to make sure you're okay!
-    Please look at the commands and resources below, they may help you. DID THIS HELP? React with 👍 or 👎`,
+    Please look at the commands and resources below, they may help you. 
+    If you found this message helpful or not please react with 👍 or 👎`,
     thumbnail: {
         url: 'https://i.ibb.co/ZSWXnSW/Screen-Shot-2021-05-22-at-5-13-56-PM.png',
     },
@@ -232,7 +233,7 @@ client.on('ready',() => {
 
     // gifs command
     command(client, 'gif', message => {
-        message.channel.send('``` Links to mental health resources: ```')
+        //message.channel.send('``` Links to mental health resources: ```')
     })
 
     command(client, 'pingadmins', message => {
@@ -279,9 +280,9 @@ client.on('ready',() => {
 })
 
 const suicidalWords = ["I want to die", "I wanna die", "I actually want to die", "I actually wanna die", 
-    "I cant't do this", "I actually want to die rn", "I actually wanna die rn",
+    "I can't do this", "I actually want to die rn", "I actually wanna die rn",
     "I cant do this", "kill myself", "kms", "end my life", "I dont want to wakeup",
-    "goodbye world", "I dont want to live", "I never want to wake up", "this is the end",
+    "goodbye world", "I dont want to live", "I never want to wake up", "this is the end", "i cant do this anymore",
     "I dont want to be alive", "i can't do this anymore", "i can't keep going", "i cant go on anymore"];
 const stressfulWords= ["stressed", "too much work", "too busy", "no time", "everything sucks",
     "I hate everything", "I have so much", "I have so much to do", "I have no time",
@@ -367,7 +368,7 @@ let stressfulWordFound = false;
         const gif = gifs[Math.floor(Math.random() * gifs.length)];
         const newEmbed = new Discord.MessageEmbed()
         .setImage(gif)
-        .setTitle('hello')
+        .setTitle('Hello! Heres a nice gif for you:')
         .setColor('#304281');
 
         message.channel.send(newEmbed); 
@@ -381,7 +382,7 @@ let stressfulWordFound = false;
             const gif = gifs[Math.floor(Math.random() * gifs.length)];
             const newEmbed = new Discord.MessageEmbed()
             .setImage(gif)
-            .setTitle('hello')
+            .setTitle('Hello! Heres a nice gif for you:')
             .setColor('#304281');
             console.log('check')
             message.channel.send(newEmbed);
