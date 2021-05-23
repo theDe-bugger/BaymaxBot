@@ -118,6 +118,43 @@ const stressedMessageDM = {
     timestamp: new Date()
 };
 
+const listOfCommands = {
+    color: '#adf1ff',
+    title: 'Commands',
+    author: {
+        name: 'Mental Health Bot',
+        icon_url: 'http://clipart-library.com/data_images/134143.gif'
+    },
+    fields: [
+        {
+            name: 'Canadian',
+            value: `!Ontario
+            !Quebec
+            !Nova Scotia
+            !New Brunswick
+            !Manitoba
+            !British Columbia
+            !Prince Edward Island
+            !Saskatchewan
+            !Alberta
+            !Newfoundland and Labrador
+            !Northwest Territories
+            !Yukon
+            !Nunavut`,
+        },
+        {
+            name: 'United States',
+            value: '!US',
+        },
+        {
+            name: 'Other Commands',
+            value: `!Hi
+            !gif`,
+        }
+        
+    ]
+};
+
 // on ready function + all hard coded commands
 client.on('ready',() => {
     console.log('client is ready!')
@@ -127,28 +164,74 @@ client.on('ready',() => {
         message.channel.send('Pong!')
     })
 
-    // greetings
-    command(client, 'hiiiii', message => {
-        message.channel.send('Hey, I am Beymax, happy to help!')
+    // List of commands
+    command(client, 'commands', message => {
+        message.channel.send({ embed: listOfCommands })
     })
 
-    // Standard motivational message
-    command(client, 'hiiiii', message => {
-        message.channel.send('Hey, I am Beymax, happy to help!')
+    command(client, 'Ontario', message => {
+        message.channel.send('Mental Health Helpline. Call 1-866-531-2600.')
     })
 
-    // resources
-    command(client, 'res1', message => {
-        message.channel.send('``` Links to mental health resources: ```')
+    command(client, 'Quebec', message => {
+        message.channel.send('Mental Health. Visit http://sante.gouv.qc.ca/en/problemes-de-sante/sante-mentale to learn more.')
+    })
+
+    command(client, 'Nova Scotia', message => {
+        message.channel.send('Crisis Text Line is available for adults who are going through a difficult time and need someone to text with: https://www.crisistextline.org/')
+    })
+
+    command(client, 'New Brunswick', message => {
+        message.channel.send('Suicide Prevention CHIMO Helpline. Visit http://www2.gnb.ca/content/gnb/en/departments/health/Suicide_Prevention.html or call 1-800-667-5005.')
+    })
+
+    command(client, 'Manitoba', message => {
+        message.channel.send('Call the Manitoba Suicide Prevention & Support Line at 1-877-435-7170')
+    })
+
+    command(client, 'British Columbia', message => {
+        message.author.send('BC Mental Health and Substance Use Services. Call 310-6789 (310 Mental Health) or visit www.bcmhsus.ca.')
+    })
+
+    command(client, 'Prince Edward Island', message => {
+        message.channel.send('The Island Helpline provides free, confidential emotional support and crisis intervention to Islanders of all ages: 1-800-218-2885.')
+    })
+
+    command(client, 'Saskatchewan', message => {
+        message.channel.send('Mental Health and Addiction Services. Go to www.saskatchewan.ca/residents/health/accessing-health-care-services/mental-health-and-addictions-support-services for a list of local mental health and addictions services.')
+    })
+
+    command(client, 'Alberta', message => {
+        message.channel.send('Mental Health Helpline. Call 1-877-303-2642')
+    })
+
+    command(client, 'Newfoundland and Labrador', message => {
+        message.channel.send('If you are having a mental health crisis please contact the Mental Health Crisis Line at (709) 737-4668 or toll free 1-888-737-4668')
+    })
+
+    command(client, 'Northwest Territories', message => {
+        message.channel.send('The NWT Help Line offers free support to residents of the Northwest Territories, 24 hours a day, 7 days a week: 1-800-661-0844.')
+    })
+
+    command(client, 'Yukon', message => {
+        message.channel.send('Kids Help Phone: 1-800-668-6868 (toll free), Yukon Distress and Support Line: 1-800-563-0808')
+    })
+
+    command(client, 'Nunavut', message => {
+        message.channel.send('Local Nunavut Phone Number: 867.979.3333 or Toll Free Outside of Iqaluit and residents of Nunavumiut: 1.800.265.3333')
+    })
+
+    command(client, 'US', message => {
+        message.channel.send('The National Suicide Prevention Lifeline: 1-800-273-8255')
+    })
+
+    // Hello message
+    command(client, 'Hi', message => {
+        message.channel.send('Hey, I am Beymax, happy to help!')
     })
 
     // gifs command
     command(client, 'resources', message => {
-        message.channel.send('``` Links to mental health resources: ```')
-    })
-
-    // commands list
-    command(client, 'idkkkk', message => {
         message.channel.send('``` Links to mental health resources: ```')
     })
 
@@ -173,11 +256,8 @@ client.on('message', message => {
 let suicidalWordFound = false ;
 
     for (let i = 0 ; i < suicidalWords.length ; i++){
-        console.log("checked " + suicidalWords[i])
         if (message.content.toLowerCase().includes(suicidalWords[i].toLowerCase())){
-            console.log("it has a sad word ####################################");
             // if a suicidal word is found
-            
             suicidalWordFound = true ;
 
             try { // we have to try incase their DM's are closed
@@ -208,9 +288,9 @@ let suicidalWordFound = false ;
 client.on('messageReactionAdd', (reaction, user) => {
     if(user.id !== client.user.id) {
         if(reaction.message.id === msgId[0] && reaction.emoji.name == "👍") {
-            user.send("yes");
+            user.send(`I'm glad I could help! \nPlease utilize the links above, along with other resources by typing !command`);
         } else if(reaction.message.id === msgId[0] && reaction.emoji.name == "👎") {
-            user.send("no");
+            user.send("Sorry for the inconvenience, but always remember you are wanted and loved ❤️");
         }
     }
 });
