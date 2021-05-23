@@ -4,7 +4,7 @@ const client = new Discord.Client();
 const command = require('./command');
 
 const PREFIX = '!';
-const { Client, MessageAttachment} = require('discord.js');
+require('events').EventEmitter.defaultMaxListeners = 20;
 
 //TODO: when the bot is added and when new ppl join the server, send dm's to everyone letting them know
 // that they can ask for help with !sendHelp or whatever
