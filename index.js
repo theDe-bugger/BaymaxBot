@@ -57,8 +57,7 @@ const suicidalMessageDM = {
     },
     description: `A text you have sent in a server was flagged as containing Suicidal Ideation. 
     We care about you, and we want to make sure you're okay!
-    Please look at the commands and resources below, they may help you. 
-    If you found this message helpful or not, please react with 👍 or 👎`,
+    Please look at the commands and resources below, they may help you. DID THIS HELP? React with 👍 or 👎`,
     thumbnail: {
         url: 'https://i.ibb.co/ZSWXnSW/Screen-Shot-2021-05-22-at-5-13-56-PM.png',
     },
@@ -266,14 +265,17 @@ const gifs = [
 let timecheck = new Date(2003, 05, 05);
 let msgId = [];
 let counter = 0;
+let msgId2 = [];
 client.on('message', message => {
 // this is run every time a new message is sent to chat
 let suicidalWordFound = false;
 let stressfulWordFound = false;
 
 
+
     for (let i = 0 ; i < suicidalWords.length ; i++){
         if (message.content.toLowerCase().includes(suicidalWords[i].toLowerCase())){
+            console.log("it has a sad word");
             // if a suicidal word is found
             suicidalWordFound = true;
 
@@ -296,7 +298,11 @@ let stressfulWordFound = false;
             if (message.content.toLowerCase().includes(stressfulWords[i].toLowerCase())){
                 // if a stressed word is found
                 stressfulWordFound = true;
-                message.author.send({ embed: stressedMessageDM });
+                message.author.send({ embed: stressedMessageDM }).then(message => {
+                    msgId2.push(message.id);
+                    message.react("👍");
+                    message.react("👎");
+                });
                 break; // if one word is found then exit after, dont keep looping
             }
         }
@@ -349,6 +355,11 @@ client.on('messageReactionAdd', (reaction, user) => {
         } else if(reaction.message.id === msgId[0] && reaction.emoji.name == "👎") {
             user.send("Sorry for the inconvenience, but always remember you are wanted and loved ❤️");
         }
+        if(reaction.message.id === msgId2[0] && reaction.emoji.name == "👍") {
+            user.send(`I'm glad I could help! \nPlease utilize the links above, along with other resources by typing !command`);
+        } else if(reaction.message.id === msgId2[0] && reaction.emoji.name == "👎") {
+            user.send("Sorry for the inconvenience, but always remember you are wanted and loved ❤️");
+        }
     }
 });
 
@@ -361,8 +372,6 @@ client.on('messageReactionAdd', (reaction, user) => {
     // situationcheck()
     // if else with api call to suicidal api - jaimil
         // dm person and check if no/yes for error - jaimil
-
-            //no: if else pinging mods in mod channel (custom channel on join) - om 
             
             //yes: apologize and send a nice message - jaimil
 
