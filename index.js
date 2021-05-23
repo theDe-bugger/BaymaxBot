@@ -2,49 +2,21 @@ const Discord = require ('discord.js');
 const config = require('./config.json');
 const client = new Discord.Client();
 const command = require('./command');
+const { cpuUsage } = require('process');
 
 const PREFIX = '!';
 require('events').EventEmitter.defaultMaxListeners = 20;
+let already_init = false;
 
 //TODO: when the bot is added and when new ppl join the server, send dm's to everyone letting them know
 // that they can ask for help with !sendHelp or whatever
 
 // added to server -> make a bot channel for anyone with admin perms - om
-client.once('message', () => {
-    command(client, 'init', message => {
-        message.guild.channels.create('Baymax Bot', {
-            type: 'category',
-            position: 1,
-            permissionOverwrites: [
-                {
-                    id: message.guild.id,
-                    deny: ['VIEW_CHANNEL']
-                },
-                {
-                    id: message.guild.roles.highest,
-                    allow: ['SEND_MESSAGES', 'VIEW_CHANNEL']
-                }
-            ]
-        }).then(category => {
-            message.guild.channels.create('baymax-bot-notifs', {
-                type: 'text',
-                parent: category,
-                permissionOverwrites: [
-                    {
-                        id: message.guild.id,
-                        deny: ['VIEW_CHANNEL']
-                    },
-                    {
-                        id: message.guild.roles.highest,
-                        allow: ['SEND_MESSAGES', 'VIEW_CHANNEL']
-                    }
-                ]
-            });
-        }).catch(error => {
-            console.log(error);
-        });
-    });
-});
+/*client.once('message', message => {
+    if (message === '!init' && !already_init) {
+        
+    }
+});*/
 
 
 client.on("guildMemberAdd", member => {
@@ -268,6 +240,43 @@ client.on('ready',() => {
     command(client, 'pingadmins', message => {
         const the_channel = message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
         the_channel.send('ayyy lets go');
+    });
+
+    command(client, 'init', message => {
+        if (!already_init) {
+            already_init = true;
+            message.guild.channels.create('Baymax Bot', {
+                type: 'category',
+                position: 1,
+                permissionOverwrites: [
+                    {
+                        id: message.guild.id,
+                        deny: ['VIEW_CHANNEL']
+                    },
+                    {
+                        id: message.guild.roles.highest,
+                        allow: ['SEND_MESSAGES', 'VIEW_CHANNEL']
+                    }
+                ]
+            }).then(category => {
+                message.guild.channels.create('baymax-bot-notifs', {
+                    type: 'text',
+                    parent: category,
+                    permissionOverwrites: [
+                        {
+                            id: message.guild.id,
+                            deny: ['VIEW_CHANNEL']
+                        },
+                        {
+                            id: message.guild.roles.highest,
+                            allow: ['SEND_MESSAGES', 'VIEW_CHANNEL']
+                        }
+                    ]
+                });
+            }).catch(error => {
+                console.log(error);
+            });
+        }
     });
 })
 
