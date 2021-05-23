@@ -283,7 +283,7 @@ const suicidalWords = ["I want to die", "I wanna die", "I actually want to die",
     "I can't do this", "I actually want to die rn", "I actually wanna die rn",
     "I cant do this", "kill myself", "kms", "end my life", "I dont want to wakeup",
     "goodbye world", "I dont want to live", "I never want to wake up", "this is the end", "i cant do this anymore",
-    "I dont want to be alive", "i can't do this anymore", "i can't keep going", "i cant go on anymore"];
+    "I dont want to be alive", "i dont wanna be alive", "i can't do this anymore", "i can't keep going", "i cant go on anymore"];
 const stressfulWords= ["stressed", "too much work", "too busy", "no time", "everything sucks",
     "I hate everything", "I have so much", "I have so much to do", "I have no time",
     "I will never get this done", "Why is there so much work", "I can't even sleep", "I literally can't sleep", "I hate this",
