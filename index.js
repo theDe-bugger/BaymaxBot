@@ -82,6 +82,31 @@ const suicidalMessageDM = {
 };
 
 // Message that is first sent to the user 
+const newMemberDM = {
+    color: '#edf5f7',
+    title: 'Baymax Has A Message For You',
+    author: {
+        name: 'Mental Health Bot',
+        icon_url: 'http://clipart-library.com/data_images/134143.gif'
+    },
+    thumbnail: {
+        url: 'https://i.ibb.co/ZSWXnSW/Screen-Shot-2021-05-22-at-5-13-56-PM.png',
+    },
+    fields: [
+        {
+            name: 'Thank you for joining this server!',
+            value: `I am a Baymax bot. My job is to search through messages within the server chat
+                    and determine if a user seems depressed or overly stressed
+                    I provide helpful links to those who need it, and I try my
+                    best to give the support to people who are suffering`,
+        },
+        {
+            name: 'Take a look at some of the commands I offer by typing in chat:',
+            value: '!commands',
+        }]
+};
+
+// Message that is first sent to the user 
 const stressedMessageDM = {
     color: '#edf5f7',
     title: 'Baymax Has A Message For You',
@@ -129,7 +154,7 @@ const listOfCommands = {
     },
     fields: [
         {
-            name: 'Canadian',
+            name: 'Canada',
             value: `!Ontario
             !Quebec
             !Nova Scotia
@@ -237,6 +262,11 @@ client.on('ready',() => {
         the_channel.send('ayyy lets go');
     });
 })
+
+client.on('guildMemberAdd', member => {
+    console.log("new member");
+    member.author.send({ embed: newMemberDM });
+});
 
 const suicidalWords = ["I want to die", "I wanna die", "I actually want to die", "I actually wanna die", 
     "I cant't do this", "I actually want to die rn", "I actually wanna die rn",
@@ -348,8 +378,6 @@ let stressfulWordFound = false;
     }
 });
 
-
-
 client.on('messageReactionAdd', (reaction, user) => {
     if(user.id !== client.user.id) {
         if(reaction.message.id === msgId[0] && reaction.emoji.name == "👍") {
@@ -367,6 +395,5 @@ client.on('messageReactionAdd', (reaction, user) => {
         }
     }
 });
-
 
 client.login(config.token)
