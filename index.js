@@ -365,7 +365,7 @@ let stressfulWordFound = false;
     let args = message.content.substring(PREFIX.length).split(/\s+/);
 
     switch(args[0]){
-        case 'send':
+        case 'gif':
             const gif = gifs[Math.floor(Math.random() * gifs.length)];
             const newEmbed = new Discord.MessageEmbed()
             .setImage(gif)
