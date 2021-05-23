@@ -354,14 +354,14 @@ client.on('messageReactionAdd', (reaction, user) => {
     if(user.id !== client.user.id) {
         if(reaction.message.id === msgId[0] && reaction.emoji.name == "👍") {
             user.send(`I'm glad I could help! \nPlease utilize the links above, along with other resources by typing !command`);
-            //const the_channel = reaction.message.guild.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
-            //the_channel.send('ayyy lets go');
+            const the_channel = client.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
+            the_channel.send(`${user.tag} has been saying things that potentially signal suicidal behavior. Please reach out.`);
         } else if(reaction.message.id === msgId[0] && reaction.emoji.name == "👎") {
             user.send("Sorry for the inconvenience, but always remember you are wanted and loved ❤️");
-            //user.send("feel free to use !command in the future if you want");
-        }
-        if(reaction.message.id === msgId2[0] && reaction.emoji.name == "👍") {
+        } else if(reaction.message.id === msgId2[0] && reaction.emoji.name == "👍") {
             user.send(`I'm glad I could help! \nPlease utilize the links above, along with other resources by typing !command`);
+            const the_channel = client.channels.cache.find(varChannel => varChannel.name === 'baymax-bot-notifs');
+            the_channel.send(`${user.tag} has been saying things that potentially signal depressed behavior. Please reach out.`);
         } else if(reaction.message.id === msgId2[0] && reaction.emoji.name == "👎") {
             user.send("Sorry for the inconvenience, but always remember you are wanted and loved ❤️");
         }
